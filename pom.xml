@@ -1,25 +1,89 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion> <!-- Model version of POM -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   
-  <groupId>in.ashokit</groupId> <!-- Group ID, typically a reversed domain name -->
-  <artifactId>01-maven-web-app</artifactId> <!-- Artifact ID, the name of the project -->
-  <packaging>war</packaging> <!-- Packaging type, war for web applications -->
-  <version>1.0-SNAPSHOT</version> <!-- Version of the project, SNAPSHOT for development versions -->
+  <modelVersion>4.0.0</modelVersion>
   
-  <name>01-maven-web-app Maven Webapp</name> <!-- Name of the project -->
-  <url>http://maven.apache.org</url> <!-- URL for the project (optional) -->
+  <groupId>in.ashokit</groupId>
+  <artifactId>01-maven-web-app</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  
+  <name>01-maven-web-app Maven Webapp</name>
+  <url>http://maven.apache.org</url>
 
   <dependencies>
+    <!-- JUnit for testing -->
     <dependency>
-      <groupId>junit</groupId> <!-- Group ID for JUnit -->
-      <artifactId>junit</artifactId> <!-- Artifact ID for JUnit -->
-      <version>3.8.1</version> <!-- Version of JUnit -->
-      <scope>test</scope> <!-- Scope of the dependency, test means it's only used for testing -->
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version> <!-- Updated version of JUnit -->
+      <scope>test</scope>
     </dependency>
+    
+    <!-- Servlet API dependency -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- JSP API dependency -->
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>javax.servlet.jsp-api</artifactId>
+      <version>2.3.3</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- JSTL for JSP -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    
+    <!-- Additional dependencies can be added here -->
   </dependencies>
 
   <build>
-    <finalName>01-maven-web-app</finalName> <!-- The final name of the built artifact -->
+    <finalName>01-maven-web-app</finalName>
+    
+    <plugins>
+      <!-- Compiler plugin to specify Java version -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      
+      <!-- Plugin to create WAR files -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml> <!-- Handle cases where web.xml is missing -->
+        </configuration>
+      </plugin>
+      
+      <!-- Tomcat plugin to run the project with an embedded server -->
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <url>http://localhost:8080/</url>
+          <path>/</path>
+        </configuration>
+      </plugin>
+      
+      <!-- Other plugins can be added here -->
+    </plugins>
   </build>
 </project>
